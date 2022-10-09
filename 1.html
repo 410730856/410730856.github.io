@@ -1,0 +1,130 @@
+<style>
+  #box {
+   background-image: linear-gradient(120deg,#FFA6FF 0%,#8fd3f4 100%);
+   width: 500px;
+   height: 420px;
+   margin: auto;
+   margin-top: 200px;
+   position: relative;
+  }
+
+  .reckon {
+   width: 280px;
+   height: 200px;
+   background-image: linear-gradient(120deg,#00FFFF 0%,#96e6a1 100%);
+   ;
+   position: absolute;
+   top: 100px;
+   left: 100px;
+   border: 5px solid #2a2b2c
+  }
+
+  #input1 {
+   background-image: linear-gradient(to top,#cfd9df 0%, #FF79BC 100%);
+   border: none;
+   width: 220px;
+   height: 8px;
+   float: right;
+   margin-top: 10px;
+   margin-right: 20px;
+   outline: none;
+   padding: 10px
+  }
+
+  ul li {
+   float: left;
+   list-style: none;
+   margin: 4px 2px;
+   border-radius: 3px;
+   background-image: linear-gradient(120deg,#a1c4fd 0%,#c2e9fb 100%);
+   box-shadow: 2px 2px #ccc;
+   color: #fff;
+   font-weight: "楷體";
+   width: 50px;
+   height: 30px;
+   text-align: center;
+   line-height: 30px;
+  }
+
+  ul {
+   margin-top: 5px;
+  }
+
+  ul li:hover {
+   opacity: 0.7;
+  }
+</style>
+
+
+--------------------------------
+<div id="box">
+  <div class="reckon" id="reckon">
+   <input type="text" id="input1">
+   <ul>
+    <li class="num">7</li>
+    <li class="num">8</li>
+    <li class="num">9</li>
+    <li class="opcr">+</li>
+
+    <li class="num">4</li>
+    <li class="num">5</li>
+    <li class="num">6</li>
+    <li class="opcr">- </li>
+
+    <li class="num">1</li>
+    <li class="num">2</li>
+    <li class="num">3</li>
+    <li class="opcr">*</li>
+
+    <li class="num">0</li>
+    <li id="returnZero">C</li>
+    <li id="resule">=</li>
+    <li class="opcr">/</li>
+   </ul>
+  </div>
+
+
+ </div>
+
+ <input type="text" id="text1" style="display:none">
+ <input type="text" id="per" style="display:none">
+
+ ----------------------------------------
+
+ <script>
+  lis = document.querySelectorAll("#box ul .num")//獲取所有的數字
+  opcr = document.querySelectorAll("#box ul .opcr")//獲取運算子
+  for (var i = 0; i < lis.length; i++) { //遍歷所有的數字
+   lis[i].onclick = function () {
+    input1.value += parseInt(this.innerHTML)//點選input1顯示
+   }
+  }
+  //遍歷所有的運算子
+  for (let i = 0; i < opcr.length; i++) {
+   opcr[i].onclick = function () {
+    if (text1.value == "") {//當存放第一個值為空時候
+     text1.value = input1.value//存放第一個值
+     input1.value = ""   //input框裡的值為空
+     per.value = this.innerHTML; //存放符號的值為空
+    } else {
+     text1.value = eval(text1.value + per.value + input1.value)//不是空的時候 計算
+     per.value = this.innerHTML;//存放符號的值為點選的值
+     input1.value = ""//input框裡的值為空
+    }
+   }
+  }
+  //等於
+  resule.onclick = function () {
+   input1.value = eval(text1.value + per.value + input1.value)//計算裡面的值
+   per.value = "" //清空存放per的值
+   text1.value = ""//input框裡的值為空
+
+  }
+  //點選清空所有
+  returnZero.onclick = function () {
+   input1.value = ""
+   per.value = ""
+   text1.value = ""
+  }
+</script>
+
